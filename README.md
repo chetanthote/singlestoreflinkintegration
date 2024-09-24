@@ -29,6 +29,24 @@ Ensure you have the following installed:
 
 Before running the Docker Compose setup, the Kafka producer and Flink processor Maven projects need to be packaged and built into Docker images. Follow the steps below:
 
+### Setting up database
+
+The Flink processor uses JDBC to store processed data into a SingleStore database. Modify the database credentials in the Flink processor’s code:
+
+```java
+new JdbcConnectionOptions.JdbcConnectionOptionsBuilder()
+    .withUrl("jdbc:singlestore://<<hostname>>:<<port>>/<<database>>")
+    .withDriverName("com.singlestore.jdbc.Driver")
+    .withUsername("<<username>>")
+    .withPassword("<<password>>")
+    .build();
+```
+
+Replace `<<hostname>>`, `<<port>>`, `<<database>>`, `<<username>>`, and `<<password>>` with your SingleStore instance's details.
+
+execute ##create_table.sql to create the sink table
+
+
 ### Kafka Producer
 
 1. Navigate to the `kafka-producer/` directory:
@@ -110,20 +128,7 @@ COPY target/flink-kafka2postgres-1.0-SNAPSHOT-jar-with-dependencies.jar flink-pr
 CMD ./wait-for-it.sh -s -t 30 $ZOOKEEPER_SERVER -- ./wait-for-it.sh -s -t 30 $KAFKA_SERVER -- java -Xmx512m -jar flink-processor.jar
 ```
 
-## Database Configuration for Flink Processor
 
-The Flink processor uses JDBC to store processed data into a SingleStore database. Modify the database credentials in the Flink processor’s code:
-
-```java
-new JdbcConnectionOptions.JdbcConnectionOptionsBuilder()
-    .withUrl("jdbc:singlestore://<<hostname>>:<<port>>/<<database>>")
-    .withDriverName("com.singlestore.jdbc.Driver")
-    .withUsername("<<username>>")
-    .withPassword("<<password>>")
-    .build();
-```
-
-Replace `<<hostname>>`, `<<port>>`, `<<database>>`, `<<username>>`, and `<<password>>` with your SingleStore instance's details.
 
 ## Customization
 
