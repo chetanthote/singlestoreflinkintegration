@@ -44,7 +44,7 @@ new JdbcConnectionOptions.JdbcConnectionOptionsBuilder()
 
 Replace `<<hostname>>`, `<<port>>`, `<<database>>`, `<<username>>`, and `<<password>>` with your SingleStore instance's details.
 
-execute #### create_table.sql to create the sink table
+### execute create_table.sql to create the sink table in database 
 
 
 ### Kafka Producer
