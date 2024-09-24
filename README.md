@@ -135,14 +135,10 @@ CMD ./wait-for-it.sh -s -t 30 $ZOOKEEPER_SERVER -- ./wait-for-it.sh -s -t 30 $KA
 - **Kafka Producer Interval**: You can adjust the data generation interval by modifying the `PRODUCER_INTERVAL` in the `docker-compose.yml` file.
 - **SingleStore Credentials**: Ensure that the database credentials in the Flink processor are updated with valid connection details.
 
-## License
-
-This project is licensed under the MIT License. See the `LICENSE` file for more details.
-
 ## Contributions
 
 Feel free to fork the project and create pull requests to improve the demo!
 
 ## Contact
 
-For questions or support, reach out via the project repository or contact Chetan.
+For questions or support, reach out via the project repository.
