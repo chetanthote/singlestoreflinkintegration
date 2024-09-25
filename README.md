@@ -8,7 +8,7 @@ This project demonstrates the integration of Apache Flink with Kafka for real-ti
 ## Project Structure
 
 ```bash
-├── kproducer/         # Maven project for generating and producing simulation data to Kafka
+├── kafka-producer/         # Maven project for generating and producing simulation data to Kafka
 │   └── Dockerfile          # Dockerfile for Kafka producer
 ├── flink-processor/        # Maven project for consuming and processing Kafka data using Flink
 │   └── Dockerfile          # Dockerfile for Flink processor
@@ -31,7 +31,7 @@ Before running the Docker Compose setup, the Kafka producer and Flink processor 
 
 ### Setting up database
 
-The Flink processor uses JDBC to store processed data into a SingleStore database. Modify the database credentials in the Flink processor’s code:
+The Flink processor uses JDBC to store processed data into a SingleStore database. Modify the database credentials in the Flink processor’s code (flink-processor/src/main/java/Main.java):
 
 ```java
 new JdbcConnectionOptions.JdbcConnectionOptionsBuilder()
@@ -44,8 +44,9 @@ new JdbcConnectionOptions.JdbcConnectionOptionsBuilder()
 
 Replace `<<hostname>>`, `<<port>>`, `<<database>>`, `<<username>>`, and `<<password>>` with your SingleStore instance's details.
 
-### execute create_table.sql to create the sink table in database 
+### Create the sink table in database 
 
+1. Execute create_table.sql
 
 ### Kafka Producer
 
@@ -59,20 +60,21 @@ Replace `<<hostname>>`, `<<port>>`, `<<database>>`, `<<username>>`, and `<<passw
    ```
 3. Build the Docker image for the Kafka producer:
    ```bash
-   docker build -t kproducer .
+   docker build -t kafka-producer .
    ```
 
 ### Flink Processor
 
-1. Navigate to the `flink-processor/` directory:
+1. Navigate back to the project root directory.
+2. Navigate to the `flink-processor/` directory:
    ```bash
    cd flink-processor/
    ```
-2. Clean and package the Maven project:
+3. Clean and package the Maven project:
    ```bash
    mvn clean package
    ```
-3. Build the Docker image for the Flink processor:
+4. Build the Docker image for the Flink processor:
    ```bash
    docker build -t flink-processor .
    ```
@@ -84,7 +86,7 @@ Once both projects are packaged and their Docker images are built, you can start
 1. Navigate back to the project root directory.
 2. Run the following command to start the services:
    ```bash
-   docker-compose up
+   docker compose up
    ```
 
 ## Docker Services Overview

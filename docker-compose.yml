@@ -29,8 +29,8 @@ services:
         aliases:
           - kafka
 
-  kproducer:
-    image: kproducer
+  kafka-producer:
+    image: kafka-producer
     depends_on:
     - kafka
     environment:
